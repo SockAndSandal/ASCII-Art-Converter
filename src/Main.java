@@ -1,7 +1,12 @@
+import javafx.application.Application;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
-public class Main {
+public class Main  {
+
+
 
     public String preProcessBright(String s)
     {
@@ -31,6 +36,7 @@ public class Main {
     }
     public static void main(String[] args)
     {
+        Scanner sc = new Scanner(System.in);
       /*  Images first = new Images(new File("apple.jpg"));
         Images second = new Images(new File("apple.jpg"));
 
@@ -44,10 +50,38 @@ public class Main {
         ASCII ascii = new ASCII(output, new Images(new File("apple-contrasted-grayed.jpg")));
 
         ascii.writeToFile(); */
-        String s = "bali.jpg";
-        new Main().preProcessBright(s);
+    /*    String s = "me3-brighter.jpg";
+        new Main().preProcessDark(s);
 
-        new Main().drawAscii("bali-contrasted-grayed.jpg");
+        new Main().drawAscii("me3-brighter-contrasted-grayed.jpg"); */
+        System.out.println("Hi, what would you like to do today? Please enter a string first");
+
+        String s = sc.next();
+
+        System.out.println("Thank you, we'll now process your string");
+        System.out.println("What processing would you like? 1) Facial, 2) Background, 3) light processing(unoptimised)");
+
+        int n = sc.nextInt();
+
+        if(n == 1) {
+            new Main().preProcessBright(s);
+            new Main().preProcessDark(s.substring(0, s.lastIndexOf('.')) + "-brighter.jpg");
+            new Main().drawAscii( s.substring(0, s.lastIndexOf('.')) + "-brighter-contrasted-grayed.jpg");
+
+        }
+        else if(n == 2) {
+            new Main().preProcessDark(s);
+            new Main().drawAscii( s.substring(0, s.lastIndexOf('.')) + "-contrasted-grayed.jpg");
+        }
+        else if(n == 3) {
+            new Main().preProcessBright(s);
+            new Main().drawAscii( s.substring(0, s.lastIndexOf('.')) + "-grayed.jpg");
+        }
+        else {
+            System.out.println("There seems to be an error");
+        }
+
+        System.out.println(s + " has been processed, please find it in the relevant text file");
 
 
 
